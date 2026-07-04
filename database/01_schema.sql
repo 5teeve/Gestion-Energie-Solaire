@@ -5,7 +5,7 @@ CREATE DATABASE gestion_energie;
 CREATE TABLE IF NOT EXISTS etude(
     id SERIAL PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
-    date_creation TIMESTAMP NOT NULL
+    date_creation TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 -- APPAREIL
@@ -44,7 +44,8 @@ CREATE TABLE IF NOT EXISTS rendement(
 
     FOREIGN KEY (id_etude) REFERENCES etude (id),
     CHECK (rendement_panneau BETWEEN 0 AND 1),
-    CHECK (rendement_batterie BETWEEN 0 AND 1)
+    CHECK (rendement_batterie BETWEEN 0 AND 1),
+    UNIQUE (id_etude)
 );
 
 -- PRIX ELECTRIQUE
@@ -56,7 +57,8 @@ CREATE TABLE IF NOT EXISTS prix_electrique(
 
     FOREIGN KEY (id_etude) REFERENCES etude (id),
     CHECK (prix > 0),
-    CHECK (type_jour IN ('ouvrable', 'weekend'))
+    CHECK (type_jour IN ('ouvrable', 'weekend')),
+    UNIQUE (id_etude, type_jour)
 );
 
 -- HEURE POINTE
