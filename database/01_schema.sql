@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS rendement(
     id SERIAL PRIMARY KEY,
     rendement_panneau DECIMAL(8, 2) NOT NULL,
     rendement_batterie DECIMAL(8, 2) NOT NULL,
+    marge_securite DECIMAL(4, 2) NOT NULL,
     id_etude INT NOT NULL,
     id_tranche INT NOT NULL,
 
