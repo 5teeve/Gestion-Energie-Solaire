@@ -40,12 +40,15 @@ CREATE TABLE IF NOT EXISTS rendement(
     id SERIAL PRIMARY KEY,
     rendement_panneau DECIMAL(8, 2) NOT NULL,
     rendement_batterie DECIMAL(8, 2) NOT NULL,
+    marge_securite DECIMAL(4, 2) NOT NULL,
     id_etude INT NOT NULL,
+    id_tranche INT NOT NULL,
 
     FOREIGN KEY (id_etude) REFERENCES etude (id),
+    FOREIGN KEY (id_tranche) REFERENCES tranche_horaire (id),
     CHECK (rendement_panneau BETWEEN 0 AND 1),
     CHECK (rendement_batterie BETWEEN 0 AND 1),
-    UNIQUE (id_etude)
+    UNIQUE (id_etude, id_tranche)
 );
 
 -- PRIX ELECTRIQUE
